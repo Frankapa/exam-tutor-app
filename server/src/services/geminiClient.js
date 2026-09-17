@@ -6,7 +6,7 @@
 // or expire like a trial credit does, which is why this project uses it
 // instead of a paid API.
 
-const MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
+const MODEL = process.env.GEMINI_MODELs;
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
 async function askGemini(prompt, { maxOutputTokens = 2048, responseMimeType } = {}) {
