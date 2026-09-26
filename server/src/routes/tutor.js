@@ -20,10 +20,7 @@ function sendGeminiError(err, res, context) {
   res.status(500).json({ error: "Could not reach the AI tutor. Please try again." });
 }
 
-// POST /api/tutor/generate-question
-// Body: { subject, previousQuestions? }
-// Asks Gemini for one fresh multiple-choice question, so no two quiz runs
-// (and no two students) see a predictable, fixed set of questions.
+
 router.post("/generate-question", async (req, res) => {
   const { subject, previousQuestions = [] } = req.body;
 
@@ -87,9 +84,7 @@ router.post("/generate-question", async (req, res) => {
   }
 });
 
-// POST /api/tutor/explain
-// Body: { subject, question, options, correctAnswer }
-// Used when a student wants a step-by-step breakdown of a quiz question.
+
 router.post("/explain", async (req, res) => {
   const { subject, question, options, correctAnswer } = req.body;
 
@@ -117,9 +112,7 @@ router.post("/explain", async (req, res) => {
   }
 });
 
-// POST /api/tutor/ask
-// Body: { question }
-// Used for the free-form "ask the tutor anything" box.
+
 router.post("/ask", async (req, res) => {
   const { question } = req.body;
 

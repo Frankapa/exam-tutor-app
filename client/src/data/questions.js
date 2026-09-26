@@ -1,6 +1,3 @@
-// Sample WAEC/JAMB-style questions. In a real product these would come from
-// a database or CMS, but a plain object is enough to demo the quiz flow.
-
 export const QUESTION_BANK = {
   Mathematics: [
     {

@@ -1,11 +1,3 @@
-// All calls to our backend live here so components don't need to know
-// about endpoints, headers, or error shapes.
-//
-// API_BASE_URL is empty by default, which means requests go to a relative
-// path like "/api/tutor/ask". That works locally because vite.config.js
-// proxies /api to the backend on port 4000. Once the backend is deployed
-// (e.g. to Render), set VITE_API_BASE_URL in a .env file to the deployed
-// URL and requests will go straight there instead — see .env.example.
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 async function postJSON(path, body) {
