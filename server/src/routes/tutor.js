@@ -3,6 +3,7 @@ import { askGemini } from "../services/geminiClient.js";
 
 const router = express.Router();
 
+const EMPHASIS_RULE = `When you need to emphasize a word or phrase, wrap it in double asterisks like **this**. Use double asterisks only for emphasis. Never use single asterisks for italics. For lists, use a hyphen (-) at the start of each line, never an asterisk.`;
 
 function sendGeminiError(err, res, context) {
   console.error(`Error in ${context}:`, err.message);
@@ -38,6 +39,8 @@ router.post("/generate-question", async (req, res) => {
     `Provide exactly 4 answer options, with only one correct.`,
     `Also provide a short one- or two-sentence explanation of why the correct answer is right, written simply enough for a student who just got it wrong to understand.`,
     `Write all math in plain text, not LaTeX — use things like x^2, 1/2, or sqrt(9) instead of wrapping expressions in dollar signs or backslash notation.`,
+    `Write all math in plain text, not LaTeX — ...`,
+    EMPHASIS_RULE,
     avoidList,
     `Respond with ONLY valid JSON, no markdown formatting, no code fences, no extra commentary, in exactly this shape:`,
     `{"question": "...", "options": ["...", "...", "...", "..."], "correctIndex": 0, "note": "..."}`,
@@ -98,6 +101,7 @@ router.post("/explain", async (req, res) => {
     `Options: ${options.join(", ")}`,
     `Correct answer: ${correctAnswer}`,
     `Write all math in plain text, not LaTeX — use things like x^2, 1/2, or sqrt(9) instead of wrapping expressions in dollar signs or backslash notation.`,
+    EMPHASIS_RULE,
     `Keep it under 120 words.`,
   ].join(" ");
 
@@ -117,7 +121,7 @@ router.post("/ask", async (req, res) => {
     return res.status(400).json({ error: "question is required." });
   }
 
-  const prompt = `You are a friendly WAEC/JAMB exam tutor for a Nigerian secondary school student. Answer clearly and simply, under 150 words. Write all math in plain text, not LaTeX — use things like x^2, 1/2, or sqrt(9) instead of wrapping expressions in dollar signs or backslash notation. Student's question: ${question}`;
+  const prompt = `You are a friendly WAEC/JAMB exam tutor for a Nigerian secondary school student. Answer clearly and simply, under 150 words. Write all math in plain text, not LaTeX — use things like x^2, 1/2, or sqrt(9) instead of wrapping expressions in dollar signs or backslash notation. ${EMPHASIS_RULE} Student's question: ${question}`;
 
   try {
     const answer = await askGemini(prompt, { maxOutputTokens: 500 });
