@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { askTutor } from "../api/tutor";
+import FormattedText from "./FormattedText.jsx";
 
 export default function AskTutor() {
   const [question, setQuestion] = useState("");
@@ -32,7 +33,9 @@ export default function AskTutor() {
           {isAsking ? "Thinking..." : "Ask"}
         </button>
       </div>
-      {answer && <div className="explain-box">{answer}</div>}
+        {answer && (
+        <div className="explain-box"><FormattedText text={answer} /></div>
+        )}
     </div>
   );
 }

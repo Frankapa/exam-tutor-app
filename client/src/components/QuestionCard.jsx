@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { explainQuestion } from "../api/tutor";
+import FormattedText from "./FormattedText.jsx";
 
 const LETTERS = ["A", "B", "C", "D"];
 const CONFETTI_DOTS = [
@@ -83,7 +84,7 @@ export default function QuestionCard({
         Score: {score}/{filledSegments}
       </div>
 
-      <div className="question">{item.question}</div>
+      <div className="question"><FormattedText text={item.question} /></div>
 
       <div className="options">
         {item.options.map((option, index) => {
@@ -101,7 +102,7 @@ export default function QuestionCard({
           return (
             <div key={index} className={className} onClick={() => handleSelect(index)}>
               <span className="letter">{LETTERS[index]}</span>
-              <span>{option}</span>
+              <span><FormattedText text={option} /></span>
               {showConfetti &&
                 CONFETTI_DOTS.map((dot, i) => (
                   <span
@@ -117,7 +118,7 @@ export default function QuestionCard({
 
       {hasAnswered && (
         <div className="feedback">
-          {wasCorrect ? "Correct." : "Not quite."} {item.note}
+            {wasCorrect ? "Correct." : "Not quite."} <FormattedText text={item.note} />
         </div>
       )}
 
@@ -132,7 +133,9 @@ export default function QuestionCard({
         </div>
       )}
 
-      {explanation && <div className="explain-box">{explanation}</div>}
+      {explanation && (
+       <div className="explain-box"><FormattedText text={explanation} /></div>
+      )}
     </div>
   );
 }
