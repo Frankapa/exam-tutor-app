@@ -3,10 +3,7 @@ import { askGemini } from "../services/geminiClient.js";
 
 const router = express.Router();
 
-// Turns a Gemini error into a response the frontend can show as-is.
-// A 429 (rate limit) gets a specific, honest message instead of the
-// generic "something went wrong" — retrying immediately won't help,
-// so the student should know to wait rather than mash the button.
+
 function sendGeminiError(err, res, context) {
   console.error(`Error in ${context}:`, err.message);
 
