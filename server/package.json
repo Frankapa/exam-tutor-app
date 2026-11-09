@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "name": "pastquestion-server",
   "version": "1.0.0",
   "description": "Backend API for the PastQuestion exam tutor. Holds the Google Gemini API key and proxies tutor requests from the React frontend.",
